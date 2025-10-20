@@ -1,29 +1,29 @@
-# main.py
 from fastapi import FastAPI
-from datetime import datetime
 import requests
+from datetime import datetime
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
 @app.get("/me")
 def get_profile():
     try:
-        # Fetch random cat fact
+        # Fetch a cat fact
         response = requests.get("https://catfact.ninja/fact", timeout=5)
-        if response.status_code == 200:
-            cat_fact = response.json().get("fact", "Cats are amazing creatures!")
-        else:
-            cat_fact = "Could not fetch a cat fact at the moment."
+        data = response.json()
+        cat_fact = data.get("fact", "Cats are mysterious creatures.")
     except Exception:
-        cat_fact = "Cat fact service unavailable."
+        cat_fact = "Could not fetch cat fact at the moment."
 
-    return {
+    profile = {
         "status": "success",
         "user": {
-            "email": "waliyullahadewale30@gmail.com",   # your email
-            "name": "Osman Waliyullah Adewale",         # your full name
-            "stack": "Python/FastAPI"                   # your backend stack
+            "email": "waliyullahadewale30@gmail.com",
+            "name": "Osman Waliyullah Adewale",
+            "stack": "Python/FastAPI"
         },
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "fact": cat_fact
     }
+
+    return JSONResponse(content=profile, media_type="application/json")
