@@ -27,3 +27,14 @@ def get_profile():
     }
 
     return JSONResponse(content=profile, media_type="application/json")
+
+    return {
+        "status": "success",
+        "user": {
+            "email": "waliyullahadewale30@gmail.com",
+            "name": "Osman Waliyullah Adewale",
+            "stack": "Python/FastAPI"
+        },
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "fact": cat_fact
+    }
