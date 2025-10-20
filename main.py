@@ -25,5 +25,3 @@ def get_profile():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "fact": cat_fact
     }
-
-    return profile_data
