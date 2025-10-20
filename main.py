@@ -26,7 +26,7 @@ def get_profile():
         "fact": cat_fact
     }
 
-    @app.get("/")
+@app.get("/")
 def read_root():
     return {"message": "Welcome! Your FastAPI app is running successfully 🚀"}
 
