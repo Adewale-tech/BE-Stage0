@@ -25,3 +25,11 @@ def get_profile():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "fact": cat_fact
     }
+
+    @app.get("/")
+def read_root():
+    return {"message": "Welcome! Your FastAPI app is running successfully 🚀"}
+
+@app.get("/hello")
+def hello():
+    return {"message": "Hello, Waliyullah! FastAPI on Render works perfectly 🙌"}
