@@ -1,53 +1,29 @@
+# main.py
 from fastapi import FastAPI
+from datetime import datetime
 import requests
-from datetime import datetime, timezone
 
 app = FastAPI()
 
 @app.get("/me")
 def get_profile():
     try:
-        # Fetch random cat fact from external API
+        # Fetch random cat fact
         response = requests.get("https://catfact.ninja/fact", timeout=5)
-        response.raise_for_status()
-        cat_fact = response.json().get("fact", "Cats are awesome!")
-    except Exception as e:
-        cat_fact = "Unable to fetch cat fact at the moment."
+        if response.status_code == 200:
+            cat_fact = response.json().get("fact", "Cats are amazing creatures!")
+        else:
+            cat_fact = "Could not fetch a cat fact at the moment."
+    except Exception:
+        cat_fact = "Cat fact service unavailable."
 
-    # Build response
-    profile_data = {
+    return {
         "status": "success",
         "user": {
-            "email": "waliyullahadewale30@gmail.com",
-            "name": "Osman Waliyullah",
-            "stack": "Python/FastAPI"
+            "email": "waliyullahadewale30@gmail.com",   # your email
+            "name": "Osman Waliyullah Adewale",         # your full name
+            "stack": "Python/FastAPI"                   # your backend stack
         },
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.utcnow().isoformat() + "Z",
         "fact": cat_fact
     }
-
-@app.get("/")
-def read_root():
-    return {
-  "status": "success",
-  "user": {
-    "email": "waliyullahadewale30@gmail.com",
-    "name": "Osman Waliyullah",
-    "stack": "Python/FastAPI"
-  },
-  "timestamp": "2025-10-16T13:32:45.218Z",
-  "fact": "Cats sleep for 70% of their lives."
-}
-
-@app.get("/hello")
-def hello():
-    return {
-  "status": "success",
-  "user": {
-    "email": "waliyullahadewale30@gmail.com",
-    "name": "Osman Waliyullah",
-    "stack": "Python/FastAPI"
-  },
-  "timestamp": "2025-10-16T13:32:45.218Z",
-  "fact": "Cats sleep for 70% of their lives."
-}
