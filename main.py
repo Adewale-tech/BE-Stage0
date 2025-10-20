@@ -32,4 +32,13 @@ def read_root():
 
 @app.get("/hello")
 def hello():
-    return {"message": "Hello, Waliyullah! FastAPI on Render works perfectly 🙌"}
+    return {
+  "status": "success",
+  "user": {
+    "email": "waliyullahadewale30@gmail.com",
+    "name": "Osman Waliyullah",
+    "stack": "Python/FastAPI"
+  },
+  "timestamp": "2025-10-16T13:32:45.218Z",
+  "fact": "Cats sleep for 70% of their lives."
+}
